@@ -18,19 +18,21 @@ ngw-name              = "ngw"
 eks-sg                = "eks"
 
 # EKS
-is-eks-cluster-enabled     = true
-cluster-name               = "eks-cluster"
-cluster-version            = "1.29"
-endpoint-private-access    = true
-endpoint-public-access     = false
-ondemand_instance_types    = ["t3a.medium"]
-spot_instance_types        = ["c5a.large", "c5a.xlarge", "m5a.large", "m5a.xlarge", "cs.large", "m5.large", "t3a.large", "t3a.xlarge", "t3a.medium"]
-desired_capacity_on_demand = "1"
-min_capacity_on_demand     = "1"
-max_capacity_on_demand     = "3"
-desired_capacity_spot      = "1"
-min_capacity_spot          = "1"
-max_capacity_spot          = "6"
+is-eks-cluster-enabled        = true
+is_eks_role_enabled           = true
+is_eks_nodegroup_role_enabled = true
+cluster-name                  = "eks-cluster"
+cluster-version               = "1.29"
+endpoint-private-access       = true
+endpoint-public-access        = false
+ondemand_instance_types       = ["t3a.medium"]
+spot_instance_types           = ["c5a.large", "c5a.xlarge", "m5a.large", "m5a.xlarge", "c5.large", "m5.large", "t3a.large", "t3a.xlarge", "t3a.medium"]
+desired_capacity_on_demand    = "1"
+min_capacity_on_demand        = "1"
+max_capacity_on_demand        = "3"
+desired_capacity_spot         = "1"
+min_capacity_spot             = "1"
+max_capacity_spot             = "6"
 addons = [
   {
     name    = "vpc-cni",

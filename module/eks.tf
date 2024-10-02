@@ -5,7 +5,7 @@ resource "aws_eks_cluster" "eks" {
   version  = var.cluster-version
 
   vpc_config {
-    subnet_ids              = [aws_subnet.private-subnet[0].id, aws_subnet.private-subnet[1].id, aws_subnet.private-subnet[2].id]
+    subnet_ids              = [aws_subnet.private-subnet[0].id, aws_subnet.private-subnet[1].id]
     endpoint_private_access = var.endpoint-private-access
     endpoint_public_access  = var.endpoint-public-access
     security_group_ids      = [aws_security_group.eks-cluster-sg.id]
@@ -48,7 +48,7 @@ resource "aws_eks_node_group" "ondemand-node" {
     max_size     = var.max_capacity_on_demand
     min_size     = var.min_capacity_on_demand
   }
-  subnet_ids     = [aws_subnet.private-subnet[0].id, aws_subnet.private-subnet[1].id, aws_subnet.private-subnet[2].id]
+  subnet_ids     = [aws_subnet.private-subnet[0].id, aws_subnet.private-subnet[1].id]
   instance_types = var.ondemand_instance_types
   capacity_type  = "ON_DEMAND"
   labels = {
@@ -65,14 +65,14 @@ resource "aws_eks_node_group" "ondemand-node" {
 
 resource "aws_eks_node_group" "spot-node" {
   cluster_name    = aws_eks_cluster.eks[0].name
-  node_group_name = "${var.cluster-name}-on-demand-nodes"
+  node_group_name = "${var.cluster-name}-on-spot-nodes"
   node_role_arn   = aws_iam_role.eks-nodegroup-role[0].arn
   scaling_config {
     desired_size = var.desired_capacity_spot
     max_size     = var.max_capacity_spot
     min_size     = var.min_capacity_spot
   }
-  subnet_ids     = [aws_subnet.private-subnet[0].id, aws_subnet.private-subnet[1].id, aws_subnet.private-subnet[2].id]
+  subnet_ids     = [aws_subnet.private-subnet[0].id, aws_subnet.private-subnet[1].id]
   instance_types = var.spot_instance_types
   capacity_type  = "SPOT"
   labels = {
